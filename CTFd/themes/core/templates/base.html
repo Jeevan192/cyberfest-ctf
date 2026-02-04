@@ -16,9 +16,6 @@
 
   {{ Plugins.styles }}
 
-  {{ Assets.js("assets/js/color_mode_switcher.js", type=None) }}
-  <script src="{{ url_for('views.themes', theme='core', path='js/ddc-particles.js') }}" defer></script>
-
   <script type="text/javascript">
       window.init = {
           'urlRoot': "{{ request.script_root }}",
@@ -69,6 +66,10 @@
 {% endblock %}
 
 {{ Plugins.scripts }}
+
+{{ Assets.js("assets/js/color_mode_switcher.js", type=None) }}
+<script src="{{ url_for('views.themes', theme='core', path='js/ddc-particles.js') }}"></script>
+<script src="{{ url_for('views.themes', theme='core', path='js/ddc-modal-fix.js') }}"></script>
 
 {{ Configs.theme_footer }}
 </body>

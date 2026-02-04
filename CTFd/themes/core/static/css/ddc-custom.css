@@ -162,17 +162,13 @@ body {
 
 /* Navbar Styling */
 .navbar {
-    background: linear-gradient(135deg, rgba(10, 15, 25, 0.95) 0%, rgba(15, 20, 35, 0.92) 100%) !important;
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(0, 124, 240, 0.3) !important;
-    border-bottom: 2px solid rgba(0, 124, 240, 0.4) !important;
-    box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.5),
-        0 0 40px rgba(0, 124, 240, 0.1);
-    padding: 1rem 2rem !important;
-    margin-bottom: 2rem;
-    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1030 !important; /* Keep this lower than modal */
+    margin-bottom: 0;
 }
 
 .navbar::before {
@@ -250,8 +246,7 @@ input[type="color"]::-webkit-color-swatch {
     border: none;
     border-radius: 4px;
 }
-    border-radius: 0.375rem;
-}
+
 
 .navbar-brand {
     font-size: 1.35rem !important;
@@ -798,17 +793,36 @@ select option:hover {
 }
 
 /* Modal */
+.modal-backdrop,
+.modal-backdrop.fade,
+.modal-backdrop.show {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+.modal {
+    background: rgba(0, 0, 0, 0.85) !important;
+    z-index: 1050 !important;
+}
+
+.modal-dialog {
+    position: relative;
+    z-index: 1060 !important;
+    margin: 1.75rem auto;
+}
+
 .modal-content {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--border-color) !important;
+    position: relative;
+    z-index: 1070 !important;
+    pointer-events: auto;
 }
 
-.modal-header {
-    border-bottom: 1px solid var(--border-color) !important;
-}
-
+.modal-header,
+.modal-body,
 .modal-footer {
-    border-top: 1px solid var(--border-color) !important;
+    position: relative;
+    z-index: 1071 !important;
 }
 
 /* Alert Messages */
@@ -1200,5 +1214,15 @@ dd {
 ::-moz-selection {
     background: rgba(0, 124, 240, 0.3);
     color: var(--text-primary);
+}
+
+/* Add after your navbar styles */
+main[role="main"] {
+    padding-top: 80px; /* Adjust based on your navbar height */
+}
+
+/* OR if that doesn't work, try: */
+body {
+    padding-top: 80px;
 }
 
