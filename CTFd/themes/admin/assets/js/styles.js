@@ -27,7 +27,7 @@ export function showMediaLibrary(editor) {
   });
 
   // Pop the Component modal
-  $("#media-modal").modal();
+  $("#media-modal").modal({ backdrop: false });
 }
 
 export function bindMarkdownEditor(elem) {

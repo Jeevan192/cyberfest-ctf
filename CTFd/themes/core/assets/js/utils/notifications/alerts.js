@@ -8,7 +8,7 @@ export default () => {
 
   CTFd._functions.events.eventAlert = data => {
     Alpine.store("modal", data);
-    let modal = new Modal(document.querySelector("[x-ref='modal']"));
+    let modal = new Modal(document.querySelector("[x-ref='modal']"), { backdrop: false });
     // TODO: Get rid of this private attribute access
     // See https://github.com/twbs/bootstrap/issues/31266
     modal._element.addEventListener(

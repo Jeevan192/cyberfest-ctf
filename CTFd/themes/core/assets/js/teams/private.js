@@ -103,12 +103,12 @@ Alpine.data("CaptainMenu", () => ({
   captain: false,
 
   editTeam() {
-    this.teamEditModal = new Modal(document.getElementById("team-edit-modal"));
+    this.teamEditModal = new Modal(document.getElementById("team-edit-modal"), { backdrop: false });
     this.teamEditModal.show();
   },
 
   chooseCaptain() {
-    this.teamCaptainModal = new Modal(document.getElementById("team-captain-modal"));
+    this.teamCaptainModal = new Modal(document.getElementById("team-captain-modal"), { backdrop: false });
     this.teamCaptainModal.show();
   },
 
@@ -121,7 +121,7 @@ Alpine.data("CaptainMenu", () => ({
 
       document.querySelector("#team-invite-modal input[name=link]").value = url;
       this.$store.inviteToken = url;
-      this.teamInviteModal = new Modal(document.getElementById("team-invite-modal"));
+      this.teamInviteModal = new Modal(document.getElementById("team-invite-modal"), { backdrop: false });
       this.teamInviteModal.show();
     } else {
       Object.keys(response.errors).map(error => {
@@ -132,7 +132,7 @@ Alpine.data("CaptainMenu", () => ({
   },
 
   disbandTeam() {
-    this.teamDisbandModal = new Modal(document.getElementById("team-disband-modal"));
+    this.teamDisbandModal = new Modal(document.getElementById("team-disband-modal"), { backdrop: false });
     this.teamDisbandModal.show();
   },
 }));
