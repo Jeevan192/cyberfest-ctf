@@ -49,5 +49,5 @@ exec gunicorn 'CTFd:create_app()' \
     --access-logfile "$ACCESS_LOG" \
     --error-logfile "$ERROR_LOG" \
     --timeout 120 \
-    --log-level info \
-    --preload
+    --log-level info
+
