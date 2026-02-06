@@ -39,6 +39,7 @@ fi
 flask db upgrade
 
 # Fix Redirect Loop (Disable Email Verification)
+export PYTHONPATH=$PYTHONPATH:/opt/CTFd
 python scripts/fix_loop.py
 
 
