@@ -8,6 +8,7 @@ ERROR_LOG=${ERROR_LOG:--}
 WORKER_TEMP_DIR=${WORKER_TEMP_DIR:-/dev/shm}
 SECRET_KEY=${SECRET_KEY:-}
 SKIP_DB_PING=${SKIP_DB_PING:-false}
+PORT=${PORT:-8000}
 
 # Check that a .ctfd_secret_key file or SECRET_KEY envvar is set
 if [ ! -f .ctfd_secret_key ] && [ -z "$SECRET_KEY" ]; then
@@ -29,9 +30,9 @@ fi
 flask db upgrade
 
 # Start CTFd
-echo "Starting CTFd"
+echo "Starting CTFd on 0.0.0.0:$PORT"
 exec gunicorn 'CTFd:create_app()' \
-    --bind '0.0.0.0:8000' \
+    --bind "0.0.0.0:$PORT" \
     --workers $WORKERS \
     --worker-tmp-dir "$WORKER_TEMP_DIR" \
     --worker-class "$WORKER_CLASS" \

@@ -1,35 +1,51 @@
-# Docker Deployment Guide for CTFd with Database & Uploads
+# Docker Deployment Guide for CTFd with Database, Uploads & Frontend Assets
 
 ## Prerequisites
 1. Install Docker Desktop for Windows from: https://www.docker.com/products/docker-desktop
 
 ## Current Configuration
 
-### Database & Uploads
+### Database, Uploads & Frontend
 Your CTFd instance has:
 - **51 challenges** stored in `CTFd/ctfd.db` (SQLite database)
 - **Challenge files** stored in `CTFd/uploads/` directory
-- Both are now included in Docker builds via updated `.dockerignore`
+- **Custom frontend assets** in `CTFd/themes/core/static/`
+  - `css/ddc-custom.dev.css` - Custom styling
+  - `js/ddc-particles.dev.js` - Particle effects
+  - `img/ddc_logo.jpg` - Custom logo
+  - `img/ddc-favicon.png` - Custom favicon
+- All assets are now properly included in Docker builds
 
 ### Docker Configuration Updated
 
-#### 1. `.dockerignore` - Modified to include database and uploads
+#### 1. `.dockerignore` - Optimized to include all frontend assets
 ```
-CTFd/logs/*.log
-.ctfd_secret_key
-.data
-.git
-# ... other items remain the same
+# Explicitly includes:
+!CTFd/themes/
+!CTFd/themes/**/*
+!CTFd/static/
+!CTFd/static/**/*
+!CTFd/ctfd.db
+!CTFd/uploads/
+!CTFd/uploads/**/*
 ```
 
-#### 2. `docker-compose.yml` - Added volume mounts for persistence
+#### 2. `Dockerfile` - Enhanced with frontend asset verification
+- Multi-stage build for optimized image size
+- Verification step to ensure themes and static files are present
+- Proper file permissions for all assets
+
+#### 3. `docker-compose.yml` - Complete volume mounts
 ```yaml
 volumes:
   - .data/CTFd/logs:/var/log/CTFd
   - .data/CTFd/uploads:/var/uploads
-  - ./CTFd/ctfd.db:/opt/CTFd/CTFd/ctfd.db  # Database persistence
-  - ./CTFd/uploads:/opt/CTFd/CTFd/uploads  # Challenge files persistence
-  - .:/opt/CTFd:ro
+  - ./CTFd/ctfd.db:/opt/CTFd/CTFd/ctfd.db              # Database
+  - ./CTFd/uploads:/opt/CTFd/CTFd/uploads              # Challenge files
+  - ./CTFd/themes/core/static/css/ddc-custom.dev.css:/opt/CTFd/CTFd/themes/core/static/css/ddc-custom.dev.css:ro
+  - ./CTFd/themes/core/static/js/ddc-particles.dev.js:/opt/CTFd/CTFd/themes/core/static/js/ddc-particles.dev.js:ro
+  - ./CTFd/themes/core/static/img/ddc_logo.jpg:/opt/CTFd/CTFd/themes/core/static/img/ddc_logo.jpg:ro
+  - ./CTFd/themes/core/static/img/ddc-favicon.png:/opt/CTFd/CTFd/themes/core/static/img/ddc-favicon.png:ro
 ```
 
 ## Deployment Steps
