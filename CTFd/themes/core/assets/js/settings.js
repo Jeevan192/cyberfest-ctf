@@ -71,7 +71,7 @@ Alpine.data("TokensForm", () => ({
     const response = await CTFd.pages.settings.generateToken(data);
     this.token = response.data.value;
 
-    new Modal(this.$refs.tokenModal).show();
+    new Modal(this.$refs.tokenModal, { backdrop: false }).show();
   },
 
   copyToken() {
@@ -84,7 +84,7 @@ Alpine.data("Tokens", () => ({
 
   async deleteTokenModal(tokenId) {
     this.selectedTokenId = tokenId;
-    new Modal(this.$refs.confirmModal).show();
+    new Modal(this.$refs.confirmModal, { backdrop: false }).show();
   },
 
   async deleteSelectedToken() {

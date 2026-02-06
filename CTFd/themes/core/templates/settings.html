@@ -122,7 +122,7 @@
 
             {% with form = Forms.self.TokensForm() %}
               <form method="POST" x-data="TokensForm" @submit.prevent="generateToken()" class="mb-3">
-                <div class="modal fade" tabindex="-1" x-ref="tokenModal">
+                <div class="modal fade" tabindex="-1" x-ref="tokenModal" data-bs-backdrop="false">
                   <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -186,8 +186,8 @@
                  of the table and alpine ref will not work #}
               <div x-data="Tokens">
                 <div
-                    class="modal fade" x-ref="confirmModal" tabindex="-1" role="dialog"
-                    aria-modal="true"
+                  class="modal fade" x-ref="confirmModal" tabindex="-1" role="dialog"
+                  aria-modal="true" data-bs-backdrop="false"
                 >
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">

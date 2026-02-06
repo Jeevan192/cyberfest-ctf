@@ -34,4 +34,5 @@ CTFd.init(window.init);
   eventToasts();
 })();
 
+
 export default CTFd;
