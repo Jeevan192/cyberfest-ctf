@@ -10,6 +10,15 @@ SECRET_KEY=${SECRET_KEY:-}
 SKIP_DB_PING=${SKIP_DB_PING:-false}
 PORT=${PORT:-8000}
 
+echo "[ INFO ] Starting CTFd with configuration:"
+echo "[ INFO ] - PORT: $PORT"
+echo "[ INFO ] - WORKERS: $WORKERS"
+echo "[ INFO ] - WORKER_CLASS: $WORKER_CLASS"
+echo "[ INFO ] - DATABASE_URL: ${DATABASE_URL:-not set}"
+echo "[ INFO ] - REDIS_URL: ${REDIS_URL:-not set}"
+echo "[ INFO ] - REVERSE_PROXY: ${REVERSE_PROXY:-not set}"
+echo "[ INFO ] - TRUSTED_HOSTS: ${TRUSTED_HOSTS:-not set}"
+
 # Check that a .ctfd_secret_key file or SECRET_KEY envvar is set
 if [ ! -f .ctfd_secret_key ] && [ -z "$SECRET_KEY" ]; then
     if [ $WORKERS -gt 1 ]; then
@@ -37,4 +46,6 @@ exec gunicorn 'CTFd:create_app()' \
     --worker-tmp-dir "$WORKER_TEMP_DIR" \
     --worker-class "$WORKER_CLASS" \
     --access-logfile "$ACCESS_LOG" \
-    --error-logfile "$ERROR_LOG"
+    --error-logfile "$ERROR_LOG" \
+    --timeout 120 \
+    --log-level info
