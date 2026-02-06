@@ -38,6 +38,10 @@ fi
 # Initialize database
 flask db upgrade
 
+# Fix Redirect Loop (Disable Email Verification)
+python scripts/fix_loop.py
+
+
 # Start CTFd
 echo "Starting CTFd on 0.0.0.0:$PORT"
 echo "[ INFO ] Starting gunicorn with preload for faster startup"
