@@ -40,6 +40,7 @@ flask db upgrade
 
 # Start CTFd
 echo "Starting CTFd on 0.0.0.0:$PORT"
+echo "[ INFO ] Starting gunicorn with preload for faster startup"
 exec gunicorn 'CTFd:create_app()' \
     --bind "0.0.0.0:$PORT" \
     --workers $WORKERS \
@@ -48,4 +49,5 @@ exec gunicorn 'CTFd:create_app()' \
     --access-logfile "$ACCESS_LOG" \
     --error-logfile "$ERROR_LOG" \
     --timeout 120 \
-    --log-level info
+    --log-level info \
+    --preload
